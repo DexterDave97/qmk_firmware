@@ -71,7 +71,7 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     if (host_keyboard_led_state().caps_lock) {
         RGB rgb = hsv_to_rgb(rgb_matrix_get_hsv());
         rgb_matrix_set_color_all(rgb.r, rgb.g, rgb.b);
-        if (rgb_matrix_get_flags() == 1) {
+        if (rgb_matrix_get_mode() == RGB_MATRIX_SOLID_COLOR) {
             rgb_matrix_set_color_all(255 - rgb.r, 255 - rgb.g, 255 - rgb.b);
         }
     } else if (rgb_matrix_get_flags() == LED_FLAG_NONE) {
