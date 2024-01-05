@@ -65,3 +65,12 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [WIN_FN]   = {ENCODER_CCW_CW(RGB_VAD, RGB_VAI) }
 };
 #endif // ENCODER_MAP_ENABLE
+
+#if defined(RGB_MATRIX_ENABLE)
+bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+    if (host_keyboard_led_state().caps_lock) {
+        rgb_matrix_set_color_all(255, 0, 0);
+    }
+    return false;
+}
+#endif
