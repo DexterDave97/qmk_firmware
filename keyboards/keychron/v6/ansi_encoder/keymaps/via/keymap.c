@@ -69,7 +69,13 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
 #if defined(RGB_MATRIX_ENABLE)
 bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     if (host_keyboard_led_state().caps_lock) {
-        rgb_matrix_set_color_all(255, 0, 0);
+        RGB rgb = hsv_to_rgb(rgb_matrix_get_hsv());
+        rgb_matrix_set_color_all(rgb.r, rgb.g, rgb.b);
+        if (rgb_matrix_get_flags() == 1) {
+            rgb_matrix_set_color_all(255 - rgb.r, 255 - rgb.g, 255 - rgb.b);
+        }
+    } else if (rgb_matrix_get_flags() == LED_FLAG_NONE) {
+        rgb_matrix_set_color_all(0, 0, 0);
     }
     return false;
 }
